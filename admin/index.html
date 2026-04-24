@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaCheats — Admin</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #111111;
+      --surface2:  #181818;
+      --border:    #222222;
+      --border2:   #2a2a2a;
+      --text:      #f0f0f0;
+      --muted:     #666666;
+      --muted2:    #444444;
+      --white:     #ffffff;
+      --accent:    #e0e0e0;
+      --on:        #d4d4d4;
+      --off:       #555555;
+      --danger:    #c0392b;
+      --danger-bg: #1a0a0a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      font-size: 13px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 28px; height: 28px;
+      background: var(--white);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 16px; height: 16px; }
+    header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+    .header-sep { width: 1px; height: 20px; background: var(--border2); }
+    header span { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+    .container { max-width: 860px; margin: 36px auto; padding: 0 20px; }
+
+    /* ── Login ── */
+    #login-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      gap: 0;
+    }
+    .login-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 40px;
+      width: 340px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .login-box .brand {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .login-box .brand h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+    .login-box .brand p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+    input[type="password"], input[type="text"] {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--white);
+      padding: 10px 14px;
+      border-radius: 7px;
+      width: 100%;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus { border-color: #555; }
+    #login-error {
+      color: #e05555;
+      font-size: 12px;
+      text-align: center;
+      min-height: 16px;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      padding: 9px 18px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      letter-spacing: 0.3px;
+      transition: opacity 0.15s, background 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary {
+      background: var(--white);
+      color: #000;
+      width: 100%;
+      padding: 11px;
+      font-size: 13px;
+    }
+    .btn-sm { padding: 6px 14px; font-size: 11px; }
+    .btn-outline {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border2);
+    }
+    .btn-outline:hover { background: var(--surface2); opacity: 1; }
+    .btn-ghost {
+      background: var(--surface2);
+      color: var(--accent);
+      border: 1px solid var(--border2);
+    }
+    .btn-danger-sm {
+      background: var(--danger-bg);
+      color: #e05555;
+      border: 1px solid #2a1010;
+    }
+    .btn-danger-sm:hover { background: #220d0d; opacity: 1; }
+    .btn-activate {
+      background: var(--surface2);
+      color: var(--on);
+      border: 1px solid var(--border2);
+    }
+
+    /* ── Main ── */
+    #main-section { display: none; }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    /* ── Add card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+    }
+    .form-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
+    .form-row input {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--white);
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      flex: 1;
+      min-width: 130px;
+      transition: border-color 0.15s;
+    }
+    .form-row input:focus { border-color: #555; }
+    #add-msg { font-size: 12px; margin-top: 10px; min-height: 16px; }
+
+    /* ── Table card ── */
+    .table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 0 12px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--text);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .avatar {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--border2);
+      display: block;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+    .badge-on  { background: #1a1a1a; color: #c8c8c8; border: 1px solid #333; }
+    .badge-on::before  { background: #c8c8c8; }
+    .badge-off { background: #141414; color: var(--muted2); border: 1px solid #222; }
+    .badge-off::before { background: var(--muted2); }
+
+    .actions { display: flex; gap: 6px; }
+    code { font-size: 11px; color: var(--muted); font-family: 'Consolas', monospace; }
+    #table-msg { color: var(--muted); font-size: 13px; padding: 24px 0; text-align: center; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="/logo.png" alt="NC" style="width:32px;height:32px;object-fit:contain;border-radius:4px" onerror="this.style.display='none'" />
+    <h1>NovaCheats</h1>
+  </div>
+  <div class="header-sep"></div>
+  <span>Admin Panel</span>
+</header>
+
+<!-- LOGIN -->
+<div id="login-section">
+  <div class="login-box">
+    <div class="brand">
+      <h2>NovaCheats</h2>
+      <p>Acesso restrito — administradores</p>
+    </div>
+    <div>
+      <div class="field-label">Senha</div>
+      <input type="password" id="pwd-input" placeholder="••••••••••••" />
+    </div>
+    <button class="btn btn-primary" onclick="doLogin()">Entrar</button>
+    <span id="login-error"></span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main-section" class="container">
+
+  <!-- Add user -->
+  <div class="card">
+    <div class="section-title">Adicionar / Atualizar Usuário</div>
+    <div class="form-row">
+      <input id="add-id"   placeholder="Discord ID  (ex: 123456789012345678)" />
+      <input id="add-name" placeholder="Username  (opcional, auto via Discord)" />
+      <input id="add-expires" type="date" title="Validade (vazio = vitalício)" style="max-width:160px" />
+      <button class="btn btn-ghost btn-sm" onclick="addUser()">Adicionar</button>
+    </div>
+    <div id="add-msg"></div>
+  </div>
+
+  <!-- Users table -->
+  <div class="card">
+    <div class="table-header">
+      <div class="section-title" style="margin:0">Usuários Cadastrados</div>
+      <button class="btn btn-outline btn-sm" onclick="loadUsers()">↻ Atualizar</button>
+    </div>
+    <div id="table-msg">Carregando...</div>
+    <table id="users-table" style="display:none">
+      <thead>
+        <tr>
+          <th style="width:44px"></th>
+          <th>Username</th>
+          <th>Discord ID</th>
+          <th>Validade</th>
+          <th>HWID</th>
+          <th>Status</th>
+          <th style="width:200px">Ações</th>
+        </tr>
+      </thead>
+      <tbody id="users-body"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  let adminPwd = '';
+
+  function doLogin() {
+    const pwd = document.getElementById('pwd-input').value.trim();
+    if (!pwd) return;
+    adminPwd = pwd;
+    loadUsers();
+  }
+
+  async function loadUsers() {
+    const res = await fetch(`/api/admin/users?password=${encodeURIComponent(adminPwd)}`);
+    const data = await res.json();
+
+    if (!data.success) {
+      document.getElementById('login-error').textContent = data.message;
+      return;
+    }
+
+    // Show main panel
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('main-section').style.display = 'block';
+
+    const tbody = document.getElementById('users-body');
+    const msg = document.getElementById('table-msg');
+    const table = document.getElementById('users-table');
+
+    if (!data.users || data.users.length === 0) {
+      msg.textContent = 'Nenhum usuário cadastrado.';
+      table.style.display = 'none';
+      return;
+    }
+
+    msg.textContent = '';
+    table.style.display = 'table';
+    tbody.innerHTML = '';
+
+    data.users.forEach(u => {
+      let avatarUrl = '';
+      if (u.discord_avatar_hash) {
+        const ext = u.discord_avatar_hash.startsWith('a_') ? 'gif' : 'png';
+        avatarUrl = `https://cdn.discordapp.com/avatars/${u.discord_id}/${u.discord_avatar_hash}.${ext}?size=64`;
+      } else {
+        avatarUrl = `https://cdn.discordapp.com/embed/avatars/0.png`;
+      }
+
+      const now = new Date();
+      const expDate = u.expires_at ? new Date(u.expires_at) : null;
+      const expired = expDate && expDate < now;
+      const expiryLabel = expDate
+        ? expDate.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' })
+        : 'Vitalício';
+
+      // HWID status
+      const hwidLabel = u.hwid_locked
+        ? '<span style="color:#e05555;font-weight:600">🔒 Bloqueado</span>'
+        : u.hwid
+          ? '<span style="color:#888;font-size:11px" title="' + escHtml(u.hwid) + '">✓ Registrado</span>'
+          : '<span style="color:#555">—</span>';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><img class="avatar" src="${avatarUrl}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" /></td>
+        <td style="font-weight:500;color:#f0f0f0">${escHtml(u.discord_username)}</td>
+        <td><code>${escHtml(u.discord_id)}</code></td>
+        <td style="font-size:12px;color:${expired ? '#e05555' : '#888'}">${expiryLabel}${expired ? ' ⚠' : ''}</td>
+        <td>${hwidLabel}</td>
+        <td><span class="badge ${u.ativo && !expired && !u.hwid_locked ? 'badge-on' : 'badge-off'}">${u.ativo && !expired && !u.hwid_locked ? 'Ativo' : expired ? 'Expirado' : u.hwid_locked ? 'Bloqueado' : 'Inativo'}</span></td>
+        <td class="actions">
+          <button class="btn btn-sm ${u.ativo ? 'btn-outline' : 'btn-activate'}" onclick="toggleUser('${u.discord_id}', ${!u.ativo})">
+            ${u.ativo ? 'Desativar' : 'Ativar'}
+          </button>
+          ${u.hwid ? `<button class="btn btn-sm btn-ghost" onclick="resetHwid('${u.discord_id}', '${escHtml(u.discord_username)}')">Reset HWID</button>` : ''}
+          <button class="btn btn-sm btn-danger-sm" onclick="removeUser('${u.discord_id}', '${escHtml(u.discord_username)}')">Remover</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function addUser() {
+    const id      = document.getElementById('add-id').value.trim();
+    const name    = document.getElementById('add-name').value.trim();
+    const expires = document.getElementById('add-expires').value.trim();
+    const msg     = document.getElementById('add-msg');
+
+    if (!id) { msg.style.color = '#e05555'; msg.textContent = 'Discord ID é obrigatório.'; return; }
+
+    const res = await fetch('/api/admin/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        password:      adminPwd,
+        discord_id:    id,
+        discord_username: name || undefined,
+        expires_at:    expires || null
+      })
+    });
+    const data = await res.json();
+    msg.style.color = data.success ? '#c8c8c8' : '#e05555';
+    msg.textContent = data.message;
+    if (data.success) {
+      document.getElementById('add-id').value      = '';
+      document.getElementById('add-name').value    = '';
+      document.getElementById('add-expires').value = '';
+      loadUsers();
+    }
+  }
+
+  async function toggleUser(discord_id, ativo) {
+    await fetch('/api/admin/toggle', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: adminPwd, discord_id, ativo })
+    });
+    loadUsers();
+  }
+
+  async function resetHwid(discord_id, name) {
+    if (!confirm(`Resetar HWID de ${name}?`)) return;
+    const res = await fetch('/api/admin/reset-hwid', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: adminPwd, discord_id })
+    });
+    const data = await res.json();
+    if (data.success) loadUsers();
+    else alert(data.message);
+  }
+
+  async function removeUser(discord_id, name) {
+    if (!confirm(`Remover ${name}?`)) return;
+    await fetch('/api/admin/remove', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: adminPwd, discord_id })
+    });
+    loadUsers();
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
+</body>
+</html>
